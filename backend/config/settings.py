@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from datetime import timedelta
-import dj_database_url  # ← NEW
+import dj_database_url
 
 # Base directory path
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -15,7 +15,7 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 # Allowed Hosts: Set this as an environment variable in production
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
-# Automatically add Railway's domain  ← NEW
+# Automatically add Railway's domain
 if 'RAILWAY_STATIC_URL' in os.environ:
     railway_url = os.environ.get('RAILWAY_STATIC_URL', '')
     railway_domain = railway_url.replace('https://', '').replace('http://', '')
@@ -44,7 +44,7 @@ INSTALLED_APPS = [
 # Middleware configuration
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # ← NEW (CRITICAL!)
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -77,10 +77,10 @@ TEMPLATES = [
 # WSGI Application
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# Database configuration  ← CHANGED
+# Database configuration - FIXED ✅
 DATABASES = {
     'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL', f'postgresql://{os.getenv("DB_USER", "postgres")}:{os.getenv("DB_PASSWORD", "")}@{os.getenv("DB_HOST", "localhost")}:{os.getenv("DB_PORT", "5432")}/{os.getenv("DB_NAME", "bankdb")}'),
+        default=os.getenv('DATABASE_URL'),  # ← NO LOCAL FALLBACK!
         conn_max_age=600,
         conn_health_checks=True,
     )
@@ -106,7 +106,7 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-# CORS Configuration  ← CHANGED
+# CORS Configuration
 CORS_ALLOWED_ORIGINS = os.getenv(
     'CORS_ALLOWED_ORIGINS',
     'http://localhost:3000,http://127.0.0.1:3000'
@@ -131,7 +131,7 @@ USE_TZ = True
 # Static files settings
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # ← NEW
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Media files settings
 MEDIA_URL = '/media/'
@@ -140,7 +140,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Production Security Settings  ← NEW (ENTIRE SECTION)
+# Production Security Settings
 if not DEBUG:
     # Force HTTPS
     SECURE_SSL_REDIRECT = True
