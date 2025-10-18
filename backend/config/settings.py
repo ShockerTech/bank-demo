@@ -22,6 +22,12 @@ if 'RAILWAY_STATIC_URL' in os.environ:
     if railway_domain:
         ALLOWED_HOSTS.append(railway_domain)
 
+# Add Railway domains
+ALLOWED_HOSTS.extend([
+    '.railway.app',
+    'bank-demo.railway.internal'
+])
+
 # Installed Apps
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -78,13 +84,25 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Database configuration
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.getenv('DATABASE_URL'),
-        conn_max_age=600,
-        conn_health_checks=True,
-    )
-}
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600,
+            conn_health_checks=True,
+        )
+    }
+    print(f"Database configured with: {DATABASE_URL.split('@')[1] if DATABASE_URL else 'No database'}")
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+    print("Warning: Using SQLite database - DATABASE_URL not set")
 
 # REST Framework Configuration
 REST_FRAMEWORK = {
