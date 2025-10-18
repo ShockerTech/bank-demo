@@ -1,1 +1,1 @@
-web: gunicorn config.wsgi --log-file - --pythonpath backend
+web: cd backend && python manage.py migrate && python manage.py collectstatic --noinput && gunicorn config.wsgi:application
