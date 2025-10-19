@@ -13,3 +13,9 @@
 # Force Node.js runtime
 [context.production.environment]
   NODE_VERSION = "18"
+
+# ADD THIS SECTION FOR CLIENT-SIDE ROUTING
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
