@@ -28,6 +28,22 @@ ALLOWED_HOSTS.extend([
     'bank-demo.railway.internal'
 ])
 
+# CSRF Settings for Railway - ADDED THIS SECTION
+CSRF_TRUSTED_ORIGINS = [
+    'https://bank-demo-production.up.railway.app',
+    'https://*.railway.app',
+]
+
+# CORS settings - UPDATED THIS SECTION
+CORS_ALLOWED_ORIGINS = [
+    'https://bank-demo-production.up.railway.app',
+    'https://*.railway.app',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
+
+CORS_ALLOW_CREDENTIALS = True
+
 # Installed Apps
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -124,14 +140,6 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
-# CORS Configuration
-CORS_ALLOWED_ORIGINS = os.getenv(
-    'CORS_ALLOWED_ORIGINS',
-    'http://localhost:3000,http://127.0.0.1:3000'
-).split(',')
-
-CORS_ALLOW_CREDENTIALS = True
-
 # Password Validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -158,10 +166,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Security Settings - DISABLED FOR RAILWAY (FIXES REDIRECT LOOP)
+# Security Settings - UPDATED THESE LINES
 SECURE_SSL_REDIRECT = False
-SESSION_COOKIE_SECURE = False
-CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True    # CHANGED to True
+CSRF_COOKIE_SECURE = True       # CHANGED to True
 
 # Security headers (safe to keep)
 SECURE_BROWSER_XSS_FILTER = True
