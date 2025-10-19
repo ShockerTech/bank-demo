@@ -28,16 +28,18 @@ ALLOWED_HOSTS.extend([
     'bank-demo.railway.internal'
 ])
 
-# CSRF Settings for Railway - ADDED THIS SECTION
+# CSRF Settings for Railway - ADDED NETLIFY DOMAIN
 CSRF_TRUSTED_ORIGINS = [
     'https://bank-demo-production.up.railway.app',
     'https://*.railway.app',
+    'https://bank-demo01.netlify.app',  # ← ADDED NETLIFY DOMAIN
 ]
 
-# CORS settings - UPDATED THIS SECTION
+# CORS settings - ADDED NETLIFY DOMAIN
 CORS_ALLOWED_ORIGINS = [
     'https://bank-demo-production.up.railway.app',
     'https://*.railway.app',
+    'https://bank-demo01.netlify.app',  # ← ADDED NETLIFY DOMAIN
     'http://localhost:3000',
     'http://127.0.0.1:3000',
 ]
