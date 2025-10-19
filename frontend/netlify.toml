@@ -4,7 +4,12 @@
 
 [build.environment]
   NODE_VERSION = "18"
-  
-# Disable Python detection
+  NPM_VERSION = "9"
+
+# Explicitly disable Python
 [build.processing]
   skip_processing = true
+
+# Force Node.js runtime
+[context.production.environment]
+  NODE_VERSION = "18"
