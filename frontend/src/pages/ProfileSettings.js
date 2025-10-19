@@ -30,7 +30,7 @@ const ProfileSettings = () => {
     try {
       setUploading(true);
       
-      const response = await fetch('http://localhost:8000/api/auth/profile/upload-picture/', {
+      const response = await fetch('https://bank-demo-production.up.railway.app/api/auth/profile/upload-picture/', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${authService.getToken()}`,
@@ -61,7 +61,7 @@ const ProfileSettings = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/auth/profile/delete-picture/', {
+      const response = await fetch('https://bank-demo-production.up.railway.app/api/auth/profile/delete-picture/', {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${authService.getToken()}`,

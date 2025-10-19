@@ -51,7 +51,7 @@ const Accounts = () => {
       }
       
       const response = await fetch(
-        `http://localhost:8000/api/banking/accounts/${accountId}/statement/`,
+        `https://bank-demo-production.up.railway.app/api/banking/accounts/${accountId}/statement/`,
         {
           headers: {
             'Authorization': `Bearer ${token}`

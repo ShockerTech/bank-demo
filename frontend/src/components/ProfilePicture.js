@@ -15,11 +15,11 @@ const ProfilePicture = ({ user, size = 40, className = '' }) => {
       
       // If it starts with /media/, add the backend URL
       if (pictureUrl.startsWith('/media/')) {
-        return `http://localhost:8000${pictureUrl}`;
+        return `https://bank-demo-production.up.railway.app${pictureUrl}`;
       }
       
       // If it's just a filename, construct the full URL
-      return `http://localhost:8000/media/profiles/${pictureUrl}`;
+      return `https://bank-demo-production.up.railway.app/media/profiles/${pictureUrl}`;
     }
     return null;
   };
